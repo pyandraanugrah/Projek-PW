@@ -5,91 +5,43 @@ FILE: script.js
 const slider = document.getElementById("slider");
 const slides = document.querySelectorAll(".slide");
 
-let currentSlide = 0;
+let current = 0;
 
-/* =========================
-UPDATE SLIDER
-========================= */
+function showSlide(index) {
+  if (!slides.length) return;
 
-function updateSlider(){
-
-  slider.style.transform =
-    `translateX(-${currentSlide * 100}%)`;
-
-}
-
-/* =========================
-NEXT
-========================= */
-
-function nextSlide(){
-
-  currentSlide++;
-
-  if(currentSlide >= slides.length){
-    currentSlide = 0;
-  }
-
-  updateSlider();
-
-}
-
-/* =========================
-PREV
-========================= */
-
-function prevSlide(){
-
-  currentSlide--;
-
-  if(currentSlide < 0){
-    currentSlide = slides.length - 1;
-  }
-
-  updateSlider();
-
-}
-
-/* =========================
-AUTO SLIDE
-========================= */
-
-setInterval(() => {
-  nextSlide();
-}, 5000);
-
-/* =========================
-ACTIVE NAV
-========================= */
-
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".nav-link");
-
-window.addEventListener("scroll", () => {
-
-  let current = "";
-
-  sections.forEach(section => {
-
-    const sectionTop = section.offsetTop - 200;
-
-    if(scrollY >= sectionTop){
-      current = section.getAttribute("id");
-    }
-
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
   });
 
-  navLinks.forEach(link => {
+  slides[index].classList.add("active");
+}
 
-    link.classList.remove("active");
+function nextSlide() {
+  if (!slides.length) return;
 
-    if(link.getAttribute("href") === `#${current}`){
-      link.classList.add("active");
-    }
+  current++;
 
-  });
+  if (current >= slides.length) {
+    current = 0;
+  }
 
-});
+  showSlide(current);
+}
+
+function prevSlide() {
+  if (!slides.length) return;
+
+  current--;
+
+  if (current < 0) {
+    current = slides.length - 1;
+  }
+
+  showSlide(current);
+}
+
+showSlide(current);
 
 /* =========================
 MOBILE NAV
@@ -97,47 +49,82 @@ MOBILE NAV
 
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("navMenu");
+const navLinks = Array.from(document.querySelectorAll(".nav-link"));
+const pageSections = navLinks
+  .map((link) => {
+    const href = link.getAttribute("href") || "";
+    if (!href.startsWith("#")) return null;
+    const id = href.slice(1);
+    const section = document.getElementById(id);
+    return section ? { link, section } : null;
+  })
+  .filter(Boolean);
 
-hamburger.addEventListener("click", () => {
+function setActiveLink(activeId) {
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    const isActive = href === `#${activeId}`;
+    link.classList.toggle("active", isActive);
+  });
+}
 
-  navMenu.classList.toggle("active");
-
-});
-
-/* CLOSE NAV */
-document.querySelectorAll(".nav-link").forEach(link => {
-
-  link.addEventListener("click", () => {
-
-    navMenu.classList.remove("active");
-
+if (hamburger && navMenu) {
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
   });
 
-});
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navMenu.classList.remove("active");
+      const href = link.getAttribute("href") || "";
+      if (href.startsWith("#")) {
+        setActiveLink(href.slice(1));
+      }
+    });
+  });
+}
+
+if (pageSections.length) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleEntry = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (visibleEntry) {
+        setActiveLink(visibleEntry.target.id);
+      }
+    },
+    {
+      root: null,
+      threshold: 0.5,
+    }
+  );
+
+  pageSections.forEach(({ section }) => observer.observe(section));
+}
 
 /* =========================
 SWIPE SLIDER MOBILE
 ========================= */
 
-let startX = 0;
-let endX = 0;
+if (slider) {
+  let startX = 0;
+  let endX = 0;
 
-slider.addEventListener("touchstart", (e) => {
+  slider.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
 
-  startX = e.touches[0].clientX;
+  slider.addEventListener("touchend", (e) => {
+    endX = e.changedTouches[0].clientX;
 
-});
+    if (startX - endX > 50) {
+      nextSlide();
+    }
 
-slider.addEventListener("touchend", (e) => {
-
-  endX = e.changedTouches[0].clientX;
-
-  if(startX - endX > 50){
-    nextSlide();
-  }
-
-  if(endX - startX > 50){
-    prevSlide();
-  }
-
-});
+    if (endX - startX > 50) {
+      prevSlide();
+    }
+  });
+}
