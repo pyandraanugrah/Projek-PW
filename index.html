@@ -11,7 +11,10 @@ FILE: index.html
 
     <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
@@ -31,13 +34,13 @@ FILE: index.html
       </div>
 
       <nav class="nav-menu" id="navMenu">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#menu" class="nav-link">Menu</a>
+        <a data-target="home" class="nav-link active">Home</a>
+        <a data-target="menu" class="nav-link">Menu</a>
 
         <div class="separator"></div>
 
-        <a href="#about" class="nav-link">About Us</a>
-        <a href="#contact" class="nav-link">Contact</a>
+        <a data-target="about" class="nav-link">About Us</a>
+        <a data-target="contact" class="nav-link">Contact</a>
       </nav>
 
       <div class="hamburger" id="hamburger">
@@ -53,7 +56,7 @@ FILE: index.html
     <section class="home" id="home">
       <!-- WAVE -->
       <div class="home-wave">
-        <img src="src/Vector.png" alt=""class="wave-img" />
+        <img src="src/Vector.png" alt="" class="wave-img" />
       </div>
 
       <!-- BLOB -->
@@ -130,126 +133,111 @@ FILE: index.html
        MENU
   ========================= -->
     <section class="menu-section" id="menu">
-
-  <!-- TITLE -->
-  <div class="menu-title">
-    <h2>MENU</h2>
-  </div>
-
-  <!-- PINK BACKGROUND -->
-  <div class="menu-bg"></div>
-
-  <!-- YUMMY TEXT -->
-  <div class="yummy-text">
-    Yummy <br>
-    Time
-  </div>
-
-  <!-- ARROW -->
-  <button class="menu-arrow left" onclick="prevSlide()">
-    <i class="fa-solid fa-chevron-left"></i>
-  </button>
-
-  <button class="menu-arrow right" onclick="nextSlide()">
-    <i class="fa-solid fa-chevron-right"></i>
-  </button>
-
-  <!-- SLIDER -->
-  <div class="slider-wrapper">
-
-    <div class="slider">
-
-      <!-- ACTIVE -->
-      <div class="slide active">
-
-        <div class="side-circle left">
-          <img src="src/molachee.jpeg" alt="Molachee">
-        </div>
-
-        <div class="main-circle">
-          <img src="src/ciweng.jpeg" alt="Ciweng">
-        </div>
-
-        <div class="menu-info">
-          <h1>CIWENG</h1>
-
-          <p>
-            Camilan berbahan dasar aci yang gurih dan renyah.
-            Memiliki rasa khas yang cocok dinikmati sebagai
-            teman bersantai ataupun camilan sehari-hari
-          </p>
-        </div>
-
-        <div class="side-circle right">
-          <img src="src/cilukba.jpeg" alt="Cilukba">
-        </div>
-
+      <!-- TITLE -->
+      <div class="menu-title">
+        <h2>MENU</h2>
       </div>
 
-      <!-- LEFT -->
-      <div class="slide left-slide">
+      <!-- PINK BACKGROUND -->
+      <div class="menu-bg"></div>
 
-        <div class="side-circle left">
-          <img src="src/cilukba.jpeg" alt="Cilukba">
-        </div>
-
-        <div class="main-circle">
-          <img src="src/molachee.jpeg" alt="Molachee">
-        </div>
-
-        <div class="menu-info">
-          <h1>MOLACHEE</h1>
-
-          <p>
-            Makanan ringan dengan cita rasa khas dan tekstur
-            kenyal yang lezat. Disajikan fresh setiap hari
-            dengan perpaduan rasa yang nikmat.
-          </p>
-        </div>
-
-        <div class="side-circle right">
-          <img src="src/ciweng.jpeg" alt="Ciweng">
-        </div>
-
+      <!-- YUMMY TEXT -->
+      <div class="yummy-text">
+        Yummy <br />
+        Time
       </div>
 
-      <!-- RIGHT -->
-      <div class="slide right-slide">
+      <!-- ARROW -->
+      <button class="menu-arrow left" onclick="prevSlide()">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
 
-        <div class="side-circle left">
-          <img src="src/ciweng.jpeg" alt="Ciweng">
+      <button class="menu-arrow right" onclick="nextSlide()">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <!-- SLIDER -->
+      <div class="slider-wrapper">
+        <div class="slider">
+          <!-- ACTIVE -->
+          <div class="slide active">
+            <div class="side-circle left">
+              <img src="src/molachee.jpeg" alt="Molachee" />
+            </div>
+
+            <div class="main-circle">
+              <img src="src/ciweng.jpeg" alt="Ciweng" />
+            </div>
+
+            <div class="menu-info">
+              <h1>CIWENG</h1>
+
+              <p>
+                Camilan berbahan dasar aci yang gurih dan renyah. Memiliki rasa
+                khas yang cocok dinikmati sebagai teman bersantai ataupun
+                camilan sehari-hari
+              </p>
+            </div>
+
+            <div class="side-circle right">
+              <img src="src/cilukba.jpeg" alt="Cilukba" />
+            </div>
+          </div>
+
+          <!-- LEFT -->
+          <div class="slide left-slide">
+            <div class="side-circle left">
+              <img src="src/cilukba.jpeg" alt="Cilukba" />
+            </div>
+
+            <div class="main-circle">
+              <img src="src/molachee.jpeg" alt="Molachee" />
+            </div>
+
+            <div class="menu-info">
+              <h1>MOLACHEE</h1>
+
+              <p>
+                Makanan ringan dengan cita rasa khas dan tekstur kenyal yang
+                lezat. Disajikan fresh setiap hari dengan perpaduan rasa yang
+                nikmat.
+              </p>
+            </div>
+
+            <div class="side-circle right">
+              <img src="src/ciweng.jpeg" alt="Ciweng" />
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="slide right-slide">
+            <div class="side-circle left">
+              <img src="src/ciweng.jpeg" alt="Ciweng" />
+            </div>
+
+            <div class="main-circle">
+              <img src="src/cilukba.jpeg" alt="Cilukba" />
+            </div>
+
+            <div class="menu-info">
+              <h1>CILUKBA</h1>
+
+              <p>
+                Camilan gurih dengan tekstur renyah di luar dan lembut di dalam.
+                Cocok dinikmati saat santai bersama teman maupun keluarga.
+              </p>
+            </div>
+
+            <div class="side-circle right">
+              <img src="src/molachee.jpeg" alt="Molachee" />
+            </div>
+          </div>
         </div>
-
-        <div class="main-circle">
-          <img src="src/cilukba.jpeg" alt="Cilukba">
-        </div>
-
-        <div class="menu-info">
-          <h1>CILUKBA</h1>
-
-          <p>
-            Camilan gurih dengan tekstur renyah di luar
-            dan lembut di dalam. Cocok dinikmati saat
-            santai bersama teman maupun keluarga.
-          </p>
-        </div>
-
-        <div class="side-circle right">
-          <img src="src/molachee.jpeg" alt="Molachee">
-        </div>
-
       </div>
 
-    </div>
-
-  </div>
-
-  <!-- PRICE -->
-  <div class="price">
-    Rp10.000
-  </div>
-
-</section>
+      <!-- PRICE -->
+      <div class="price">Rp10.000</div>
+    </section>
     <!-- =========================
        ABOUT
   ========================= -->
