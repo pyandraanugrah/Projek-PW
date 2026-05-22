@@ -18,13 +18,13 @@ FILE: style.css
 }
 
 body{
-  font-family:'Poppins',sans-serif;
+  font-family:'Poppins', sans-serif;
   background:var(--lightPink);
   overflow-x:hidden;
 }
 
 h1,h2,h3{
-  font-family:'Fredoka',sans-serif;
+  font-family:'Poppins', sans-serif;
 }
 
 /* =========================
@@ -61,10 +61,13 @@ NAVBAR
 .logo-text h1{
   color:var(--pink);
   font-size:3rem;
+  font-family:'Poppins', sans-serif;
+  font-weight:600;
 }
 
 .logo-text p{
   color:#ff8db2;
+  font-family:'Poppins', sans-serif;
 }
 
 .nav-menu{
@@ -77,7 +80,8 @@ NAVBAR
   text-decoration:none;
   color:var(--pink);
   font-size:1.8rem;
-  font-weight:700;
+  font-weight:600;
+  font-family:'Poppins', sans-serif;
 
   padding:10px 24px;
   border-radius:999px;
@@ -210,6 +214,9 @@ HOME
   text-align:center;
 
   color:white;
+
+  font-family:'Bagel Fat One', cursive;
+  font-weight:400;
 
   text-shadow:
     0 8px 0 #e53e73,
@@ -379,17 +386,17 @@ MENU SECTION
   position:absolute;
 
   left:90px;
-  top:500px;
+  top:455px;
 
   z-index:15;
 
-  font-size:6rem;
-  line-height:.9;
+  font-size:4.8rem;
+  line-height:1.05;
 
   color:white;
 
-  font-family:'Fredoka';
-  font-weight:700;
+  font-family:'Bagel Fat One', cursive;
+  font-weight:400;
 }
 
 /* =========================
@@ -452,7 +459,7 @@ CENTER CIRCLE
 
   border-radius:50%;
 
-  background:#dcdcdc;
+  background:#f0d8e0;
 
   display:flex;
   align-items:center;
@@ -481,7 +488,7 @@ LEFT CIRCLE
 
   border-radius:50%;
 
-  background:#dcdcdc;
+  background:#f0d8e0;
 
   display:flex;
   align-items:center;
@@ -503,7 +510,7 @@ LEFT CIRCLE
 
   border-radius:50%;
 
-  background:#dcdcdc;
+  background:#f0d8e0;
 
   display:flex;
   align-items:center;
@@ -557,7 +564,8 @@ MENU INFO
   font-size:clamp(.95rem, .95vw, 1.05rem);
   line-height:1.55;
 
-  font-weight:700;
+  font-family:'Baloo 2', cursive;
+  font-weight:600;
 
   max-width:100%;
   overflow-wrap:anywhere;
@@ -695,6 +703,7 @@ ABOUT
   color:var(--pink);
   font-size:4rem;
   margin-bottom:20px;
+  font-family:'Poppins', sans-serif;
 }
 
 .about-right p{
@@ -702,6 +711,7 @@ ABOUT
   line-height:1.6;
   font-weight:600;
   color:#333;
+  font-family:'Poppins', sans-serif;
 
   margin-bottom:25px;
 }
@@ -715,6 +725,7 @@ ABOUT
 .feature{
   text-align:center;
   max-width:180px;
+  font-family:'Poppins', sans-serif;
 }
 
 .feature i{
@@ -769,11 +780,13 @@ CONTACT
 .contact-card h2{
   color:var(--pink);
   font-size:3rem;
+  font-family:'Baloo 2', cursive;
 }
 
 .contact-card h3{
   margin-top:10px;
   font-size:2rem;
+  font-family:'Baloo 2', cursive;
 }
 
 .line{
@@ -805,6 +818,7 @@ CONTACT
 
   font-size:2rem;
   font-weight:700;
+  font-family:'Baloo 2', cursive;
 
   transition:.3s;
 }
@@ -885,11 +899,13 @@ FOOTER
 
 .footer-left h1{
   font-size:6rem;
+  font-family:'Baloo 2', cursive;
 }
 
 .footer-left p{
   font-size:1.8rem;
   line-height:1.7;
+  font-family:'Baloo 2', cursive;
 }
 
 .footer-center{
@@ -902,6 +918,7 @@ FOOTER
   color:white;
   text-decoration:none;
   font-size:2rem;
+  font-family:'Baloo 2', cursive;
 }
 
 .footer-divider{
@@ -922,12 +939,14 @@ FOOTER
   gap:18px;
 
   font-size:2rem;
+  font-family:'Baloo 2', cursive;
 }
 
 .copyright{
   text-align:center;
   padding-bottom:35px;
   font-size:2rem;
+  font-family:'Baloo 2', cursive;
 }
 
 /* =========================
@@ -1010,7 +1029,7 @@ RESPONSIVE
 
     border-radius:50%;
 
-    background:#dcdcdc;
+    background:#f0d8e0;
 
     display:flex;
     align-items:center;
@@ -1095,16 +1114,30 @@ RESPONSIVE
 RESPONSIVE
 ========================= */
 /* =========================
-FIX IMAGE MENU
+FIX IMAGE MENU - PNG TRANSPARAN
 ========================= */
 
-.main-circle img,
-.side-circle img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:50%;
+/* Main circle: PNG ditampilkan penuh tanpa terpotong */
+.main-circle img{
+  width:88%;
+  height:88%;
+  object-fit:contain;
+  object-position:center bottom;
+  border-radius:0;
   display:block;
+  /* drop-shadow untuk PNG transparan agar menyatu dengan desain */
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.18));
+}
+
+/* Side circles: PNG lebih kecil agar tidak mepet tepi */
+.side-circle img{
+  width:82%;
+  height:82%;
+  object-fit:contain;
+  object-position:center bottom;
+  border-radius:0;
+  display:block;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));
 }
 
 /* =========================
