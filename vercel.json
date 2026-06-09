@@ -1,8 +1,6 @@
 {
-  "builds": [
-    { "src": "api/index.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "api/index.js" }
-  ]
+  "functions": {
+    "api/menu.js": { "maxDuration": 30 },
+    "api/orders.js": { "maxDuration": 30 }
+  }
 }
