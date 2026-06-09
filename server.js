@@ -18,34 +18,43 @@ const MENU_SEED = [
 let query;
 
 if (process.env.DATABASE_URL) {
-  const { neon } = require("@neondatabase/serverless");
-  const sql = neon(process.env.DATABASE_URL);
+  const { Pool } = require("pg");
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+  async function q(sql, params) {
+    const client = await pool.connect();
+    try {
+      return await client.query(sql, params);
+    } finally {
+      client.release();
+    }
+  }
 
   query = {
     async menu() {
-      await sql(`CREATE TABLE IF NOT EXISTS menu_items (id SERIAL PRIMARY KEY, name TEXT NOT NULL, price INTEGER NOT NULL, description TEXT, image TEXT)`);
-      const { rows: c } = await sql("SELECT COUNT(*)::int as c FROM menu_items");
+      await q(`CREATE TABLE IF NOT EXISTS menu_items (id SERIAL PRIMARY KEY, name TEXT NOT NULL, price INTEGER NOT NULL, description TEXT, image TEXT)`);
+      const { rows: c } = await q("SELECT COUNT(*)::int as c FROM menu_items");
       if (c[0].c === 0) {
         for (const m of MENU_SEED) {
-          await sql("INSERT INTO menu_items (name, price, description, image) VALUES ($1, $2, $3, $4)", m);
+          await q("INSERT INTO menu_items (name, price, description, image) VALUES ($1, $2, $3, $4)", m);
         }
       }
-      const { rows } = await sql("SELECT * FROM menu_items");
+      const { rows } = await q("SELECT * FROM menu_items");
       return rows;
     },
     async createOrder(name, phone, address, items, total) {
-      const { rows } = await sql(
+      const { rows } = await q(
         "INSERT INTO orders (customer_name, phone, address, items, total) VALUES ($1, $2, $3, $4, $5) RETURNING id",
         [name, phone, address, JSON.stringify(items), total]
       );
       return rows[0].id;
     },
     async orders() {
-      const { rows } = await sql("SELECT * FROM orders ORDER BY created_at DESC");
+      const { rows } = await q("SELECT * FROM orders ORDER BY created_at DESC");
       return rows;
     },
     async init() {
-      await sql(`CREATE TABLE IF NOT EXISTS orders (id SERIAL PRIMARY KEY, customer_name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL, items TEXT NOT NULL, total INTEGER NOT NULL, status TEXT DEFAULT 'pending', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`);
+      await q(`CREATE TABLE IF NOT EXISTS orders (id SERIAL PRIMARY KEY, customer_name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL, items TEXT NOT NULL, total INTEGER NOT NULL, status TEXT DEFAULT 'pending', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`);
     }
   };
 
