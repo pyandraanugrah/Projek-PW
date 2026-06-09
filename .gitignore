@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 .sixth
+=======
+node_modules/
+database.sqlite
+database.sqlite-*
+.env
+>>>>>>> f076b9a (add backend with Vercel serverless API + Neon PostgreSQL + order system)
